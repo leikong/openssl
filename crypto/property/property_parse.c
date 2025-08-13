@@ -297,9 +297,11 @@ static int pd_compare(const OSSL_PROPERTY_DEFINITION *const *p1,
     return 0;
 }
 
-static void pd_free(OSSL_PROPERTY_DEFINITION *pd)
+// return type is made void* to be consistent with OPENSSL_sk_freefunc signature
+static void* pd_free(void* pd)
 {
-    OPENSSL_free(pd);
+    OPENSSL_free((OSSL_PROPERTY_DEFINITION*)pd);
+    return NULL;
 }
 
 /*
